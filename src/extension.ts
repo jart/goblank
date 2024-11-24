@@ -13,6 +13,7 @@ function prevBlankLine() {
 
     const document = editor.document;
     const currentPos = editor.selection.active;
+    const anchorPos = editor.selection.anchor;
     let lineNum = currentPos.line;
 
     // Skip current blank lines going up
@@ -24,14 +25,22 @@ function prevBlankLine() {
     while (lineNum > 0) {
         lineNum--;
         if (isBlankLine(document.lineAt(lineNum))) {
-            editor.selection = new vscode.Selection(lineNum, 0, lineNum, 0);
+            const newPos = new vscode.Position(lineNum, 0);
+            editor.selection = new vscode.Selection(
+                anchorPos.isEqual(currentPos) ? newPos : anchorPos,
+                newPos
+            );
             editor.revealRange(new vscode.Range(lineNum, 0, lineNum, 0));
             return;
         }
     }
 
     // If no blank line found, go to start of document
-    editor.selection = new vscode.Selection(0, 0, 0, 0);
+    const startPos = new vscode.Position(0, 0);
+    editor.selection = new vscode.Selection(
+        anchorPos.isEqual(currentPos) ? startPos : anchorPos,
+        startPos
+    );
 }
 
 function nextBlankLine() {
@@ -40,6 +49,7 @@ function nextBlankLine() {
 
     const document = editor.document;
     const currentPos = editor.selection.active;
+    const anchorPos = editor.selection.anchor;
     let lineNum = currentPos.line;
     const lastLine = document.lineCount - 1;
 
@@ -52,14 +62,22 @@ function nextBlankLine() {
     while (lineNum < lastLine) {
         lineNum++;
         if (isBlankLine(document.lineAt(lineNum))) {
-            editor.selection = new vscode.Selection(lineNum, 0, lineNum, 0);
+            const newPos = new vscode.Position(lineNum, 0);
+            editor.selection = new vscode.Selection(
+                anchorPos.isEqual(currentPos) ? newPos : anchorPos,
+                newPos
+            );
             editor.revealRange(new vscode.Range(lineNum, 0, lineNum, 0));
             return;
         }
     }
 
     // If no blank line found, go to end of document
-    editor.selection = new vscode.Selection(lastLine, 0, lastLine, 0);
+    const endPos = new vscode.Position(lastLine, 0);
+    editor.selection = new vscode.Selection(
+        anchorPos.isEqual(currentPos) ? endPos : anchorPos,
+        endPos
+    );
 }
 
 function isBlankLine(line: vscode.TextLine): boolean {

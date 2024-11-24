@@ -2,7 +2,7 @@
     "name": "goblank",
     "displayName": "Blank Line Navigation",
     "description": "Navigate to previous/next blank lines",
-    "version": "0.0.4",
+    "version": "0.0.7",
     "publisher": "jart",
     "license": "ISC",
     "keywords": ["navigation", "emacs", "productivity"],
