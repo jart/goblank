@@ -2,7 +2,10 @@
     "name": "goblank",
     "displayName": "Blank Line Navigation",
     "description": "Navigate to previous/next blank lines",
-    "version": "0.0.1",
+    "version": "0.0.4",
+    "publisher": "jart",
+    "license": "ISC",
+    "keywords": ["navigation", "emacs", "productivity"],
     "engines": {
         "vscode": "^1.60.0"
     },
@@ -27,13 +30,13 @@
         "keybindings": [
             {
                 "command": "extension.prevBlankLine",
-                "key": "alt+shift+up",
-                "mac": "cmd+shift+up"
+                "key": "alt+shift+[",
+                "mac": "alt+shift+["
             },
             {
                 "command": "extension.nextBlankLine",
-                "key": "alt+shift+down",
-                "mac": "cmd+shift+down"
+                "key": "alt+shift+]",
+                "mac": "alt+shift+]"
             }
         ]
     },
@@ -41,7 +44,11 @@
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "package": "vsce package",
-        "build": "npm run compile && npm run package"
+        "build": "npm run compile && npm run package",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js",
+        "vscode:prepublish": "npm run compile",
+        "publish": "vsce publish"
     },
     "devDependencies": {
         "@types/vscode": "^1.60.0",

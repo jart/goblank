@@ -1,11 +1,19 @@
 # goblank
 
-vscode extension for moving cursor to prev/next blank lines.
+Move cursor to previous/next blank line.
+
+This extension will install two keyboard shortcuts:
+
+- `alt+{` moves the cursor to the previous blank line
+- `alt+}` moves the cursor to the next blank line
+
+This is a useful way for navigating files. For example, blank lines are often
+what separates functions. So using these keystrokes, you can quickly hop between
+functions in your source file.
 
 ## Background
 
-I really like using `M-{` and `M-}` in Emacs to hop between blank lines.
-It's one of the main ways I navigate source code.
+I originally wrote this Emacs code to do it:
 
 ```elisp
 (defconst jart-blank-line-regexp
@@ -34,4 +42,4 @@ It's one of the main ways I navigate source code.
 (global-set-key (kbd "M-}") 'jart-next-blank-line)
 ```
 
-I wanted to have this for vscode too, so I wrote this.
+I wanted to have this for VSCode too, so I wrote this.
